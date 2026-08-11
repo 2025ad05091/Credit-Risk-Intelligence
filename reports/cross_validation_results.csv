@@ -1,0 +1,6 @@
+ML Model,CV AUC (mean),CV AUC (std),Best Parameters
+Logistic Regression,0.7791,0.021,"{'C': 0.05, 'penalty': 'l2'}"
+Decision Tree,0.7621,0.0162,"{'criterion': 'gini', 'max_depth': 7, 'min_samples_leaf': 20}"
+KNN,0.7548,0.0332,"{'n_neighbors': 31, 'p': 1, 'weights': 'distance'}"
+Naive Bayes,0.7174,0.0471,{'var_smoothing': 0.001}
+Random Forest,0.7926,0.0139,"{'max_depth': None, 'max_features': 'sqrt', 'min_samples_leaf': 3, 'n_estimators': 600}"
