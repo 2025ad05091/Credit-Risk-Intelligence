@@ -1,0 +1,71 @@
+{
+  "project": "German Credit Risk Classification",
+  "dataset": "UCI Statlog (German Credit Data)",
+  "dataset_url": "https://archive.ics.uci.edu/dataset/144/statlog+german+credit+data",
+  "created_on": "2026-08-05",
+  "sklearn_version": "1.9.0",
+  "random_state": 42,
+  "test_size": 0.25,
+  "target_column": "credit_risk",
+  "positive_label": "Bad",
+  "negative_label": "Good",
+  "class_names": [
+    "Good",
+    "Bad"
+  ],
+  "numeric_features": [
+    "duration_months",
+    "credit_amount",
+    "installment_rate_pct_income",
+    "residence_since_years",
+    "age_years",
+    "existing_credits_at_bank",
+    "dependents"
+  ],
+  "categorical_features": [
+    "checking_account_status",
+    "credit_history",
+    "purpose",
+    "savings_account",
+    "employment_since",
+    "personal_status_sex",
+    "other_debtors",
+    "property_type",
+    "other_installment_plans",
+    "housing",
+    "job",
+    "telephone",
+    "foreign_worker"
+  ],
+  "feature_order": [
+    "checking_account_status",
+    "duration_months",
+    "credit_history",
+    "purpose",
+    "credit_amount",
+    "savings_account",
+    "employment_since",
+    "installment_rate_pct_income",
+    "personal_status_sex",
+    "other_debtors",
+    "residence_since_years",
+    "property_type",
+    "age_years",
+    "other_installment_plans",
+    "housing",
+    "existing_credits_at_bank",
+    "job",
+    "dependents",
+    "telephone",
+    "foreign_worker"
+  ],
+  "models": {
+    "Logistic Regression": "logistic_regression.pkl",
+    "Decision Tree": "decision_tree.pkl",
+    "KNN": "knn.pkl",
+    "Naive Bayes": "naive_bayes.pkl",
+    "Random Forest": "random_forest.pkl"
+  },
+  "n_train_rows": 750,
+  "n_test_rows": 250
+}
