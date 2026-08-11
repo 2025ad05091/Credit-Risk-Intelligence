@@ -21,7 +21,7 @@
 
 ### 1.1 GitHub Repository Link
 
-**https://github.com/username/ml-assignment-2**
+**https://github.com/2025ad05091/Credit-Risk-Intelligence**
 
 The repository contains the complete source code, `requirements.txt`, a full `README.md`
 and the test data used in the experiments (`test_data.csv`).
@@ -36,7 +36,7 @@ and the test data used in the experiments (`test_data.csv`).
 
 ### 1.2 Live Streamlit App Link
 
-**https://your-app-name.streamlit.app**
+**_<!-- TODO: paste the deployed Streamlit Cloud URL here before exporting the PDF -->_**
 
 Deployed on Streamlit Community Cloud; the link opens an interactive front end with
 sidebar navigation, a CSV uploader, a model dropdown, metric cards, confusion matrices,

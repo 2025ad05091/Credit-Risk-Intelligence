@@ -108,12 +108,12 @@ The training notebook decodes these into readable business labels using the mapp
 
 ## c. GitHub Repository Link
 
-**Repository:** https://github.com/username/ml-assignment-2
+**Repository:** https://github.com/2025ad05091/Credit-Risk-Intelligence
 
 ### Repository contents
 
 ```text
-ml-assignment-2/
+Credit-Risk-Intelligence/
 ├── app.py                       # Streamlit web application (deployment entry point)
 ├── requirements.txt             # Pinned runtime dependencies
 ├── README.md                    # This document
@@ -259,7 +259,7 @@ retain Random Forest as a challenger model, re-evaluating both once more data ac
 
 ## f. Streamlit Application
 
-**Live app:** https://your-app-name.streamlit.app
+**Live app:** _<!-- TODO: paste the deployed URL here after the Streamlit Cloud build succeeds -->_
 
 ### Mandatory features (mapped to the assignment rubric)
 
@@ -300,8 +300,8 @@ retain Random Forest as a challenger model, re-evaluating both once more data ac
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/username/ml-assignment-2.git
-cd ml-assignment-2
+git clone https://github.com/2025ad05091/Credit-Risk-Intelligence.git
+cd Credit-Risk-Intelligence
 
 # 2. Create and activate a virtual environment
 python -m venv .venv
@@ -358,7 +358,7 @@ comparison table above exactly.
    must all be committed — `models/*.pkl` are **not** to be git-ignored).
 2. Go to https://streamlit.io/cloud and sign in with the GitHub account.
 3. Click **New app**.
-4. Select the repository `username/ml-assignment-2`.
+4. Select the repository `2025ad05091/Credit-Risk-Intelligence`.
 5. Choose the branch `main`.
 6. Set the main file path to `app.py`.
 7. Click **Deploy** and wait for the build to finish.
