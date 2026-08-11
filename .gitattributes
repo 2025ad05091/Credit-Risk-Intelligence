@@ -1,0 +1,11 @@
+# Keep the raw UCI data byte-identical on every platform so the notebook is
+# reproducible after a clone on Windows, macOS or Linux.
+data/german.data -text
+data/german.doc  -text
+
+# Binary artefacts - never diff or convert these.
+*.pkl  binary
+*.png  binary
+
+# Notebooks are JSON; keep them as-is to avoid noisy diffs.
+*.ipynb -text

@@ -1,0 +1,21 @@
+# Runtime dependencies for the Credit Risk Intelligence Console
+#
+# PYTHON VERSION: requires Python >= 3.11 (scikit-learn 1.9.0 / pandas 3.0 floor).
+# Verified working on CPython 3.14.3; every dependency above publishes cp314
+# wheels, so no source builds are needed. Streamlit Community Cloud defaults to
+# 3.12 - either the default or 3.13/3.14 works, but selecting 3.10 or older in
+# Advanced settings makes the build fail with "no matching distribution".
+#
+# scikit-learn and joblib are pinned exactly because the .pkl pipelines stored in
+# models/ were serialised with these versions; unpickling with a different
+# scikit-learn release raises InconsistentVersionWarning or fails outright.
+# The pinned pickles were verified to reproduce every committed test metric
+# byte-for-byte under 3.14, so the interpreter choice does not affect results.
+
+streamlit>=1.49
+scikit-learn==1.9.0
+joblib==1.5.3
+pandas>=2.2
+numpy>=1.26
+matplotlib>=3.8
+seaborn>=0.13
