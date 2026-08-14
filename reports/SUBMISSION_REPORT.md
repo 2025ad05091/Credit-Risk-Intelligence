@@ -631,3 +631,42 @@ probability and can move the cut-off in line with the bank's risk appetite.
    dictates — a decision that belongs to the business, not the algorithm.
 
 ---
+
+## Section 8 — Final Submission Checklist
+
+| # | Requirement (assignment brief) | Status |
+|---|---|---|
+| 1 | GitHub repo link works | ☑ pushed and verified public |
+| 2 | Repo contains complete source code | ☑ `app.py`, `notebooks/training.ipynb` |
+| 3 | Repo contains `requirements.txt` | ☑ pinned, deployment-tested |
+| 4 | Repo contains a clear `README.md` | ☑ follows the mandated a–d structure |
+| 5 | Repo contains the test data (CSV) | ☑ `test_data.csv`, 250 labelled rows |
+| 6 | Saved model files for all implemented models | ☑ five `.pkl` pipelines + `metadata.json` |
+| 7 | Streamlit app link opens correctly | ☑ deployed, returns HTTP 200 |
+| 8 | App loads without errors | ☑ all five pages smoke-tested, 0 errors |
+| 9 | Dataset ≥ 500 instances | ☑ 1,000 |
+| 10 | Dataset ≥ 12 features | ☑ 20 predictors |
+| 11 | Logistic Regression implemented | ☑ |
+| 12 | Decision Tree implemented | ☑ |
+| 13 | kNN implemented | ☑ |
+| 14 | Naive Bayes (Gaussian) implemented | ☑ |
+| 15 | Random Forest ensemble implemented | ☑ |
+| 16 | All six metrics for every model | ☑ Accuracy, AUC, Precision, Recall, F1, MCC |
+| 17 | Comparison table populated with real outputs | ☑ from `reports/evaluation_results.csv` |
+| 18 | Observations for each model | ☑ Section 5 |
+| 19 | Overall winner declared and justified | ☑ Logistic Regression, evidence-backed |
+| 20 | App: CSV upload of test data | ☑ Figure 1 |
+| 21 | App: model selection dropdown | ☑ Figure 1, Figure 3 |
+| 22 | App: evaluation metrics displayed | ☑ Figure 3, Figure 4 |
+| 23 | App: confusion matrix / classification report | ☑ both, Figure 3 |
+| 24 | Results of different models visible in the app | ☑ Model Benchmark page, Figure 4 |
+| 25 | BITS Virtual Lab screenshot included | ☑ embedded in Section 1.3 |
+| 26 | README content included in the submitted PDF | ☑ Section 2 |
+| 27 | Reproducibility via `random_state` | ☑ `random_state = 42` throughout |
+| 28 | Original work, no template copied | ☑ |
+| 29 | Single PDF, sections in the mandated order | ☐ *verify after exporting* |
+| 30 | Submitted (not left as a draft) before 18 Aug 2026, 23:59 IST | ☐ *action required* |
+
+---
+
+*Prepared for BITS Pilani WILP — Machine Learning Assignment 2.*
