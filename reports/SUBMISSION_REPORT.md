@@ -556,6 +556,7 @@ Forest as a challenger, re-evaluating both once more data accrues.
 | **b. Model selection dropdown** | Sidebar `selectbox` listing all five classifiers, with a contextual description of the selected model. | Figure 1, Figure 3 |
 | **c. Display of evaluation metrics** | *Model Evaluation* page renders Accuracy, AUC, Precision, Recall, F1 and MCC as styled KPI cards; *Model Benchmark* tabulates all five models at once. | Figure 3, Figure 4 |
 | **d. Confusion matrix / classification report** | *Model Evaluation* page shows **both** an annotated confusion matrix and a full per-class classification report, plus the ROC curve. | Figure 3 |
+| *(beyond the rubric)* **Per-applicant probability scoring** | *Single Applicant* page returns a calibrated `P(Bad)` for an individual record and compares the prediction against the ground-truth label. | Figure 5 |
 
 **Additional features implemented beyond the minimum:** five-page sidebar navigation; a
 live decision-threshold slider that lets the evaluator watch the precision/recall
@@ -592,6 +593,16 @@ the 0.50 threshold and reports Logistic Regression as the winner on MCC, AUC and
 reproducing the comparison table in Section 4.1.
 
 ![Streamlit Model Benchmark page comparing all five models with Logistic Regression winning on MCC, AUC and Recall](screenshots/app_4_model_benchmark.png)
+
+**Figure 5 — Single Applicant page.** Scores one record at a time and returns a
+calibrated probability rather than a bare label. The applicant shown holds a checking
+balance below 0 DM and requests 7,119 DM over 48 months; Random Forest returns
+P(Bad) = 0.8640, classifies the application as **Bad risk** at the 0.50 cut-off, and the
+panel confirms the prediction matches the ground-truth label. This is the page that
+operationalises the threshold argument made in Section 5 — the credit officer sees the
+probability and can move the cut-off in line with the bank's risk appetite.
+
+![Streamlit Single Applicant page showing the applicant profile, a predicted class of Bad risk with P(Bad) = 0.8640, and confirmation that the prediction matches the ground truth](screenshots/app_5_single_applicant.png)
 
 
 ## Section 7 — Final Conclusions
