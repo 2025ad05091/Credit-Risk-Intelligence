@@ -5,15 +5,12 @@
 
 | | |
 |---|---|
-| **Student Name** | *&lt;Fill in&gt;* |
-| **BITS ID** | *&lt;Fill in&gt;* |
+| **Student Name** | Madhusudan M |
+| **BITS ID** | 2025AD05091 |
 | **Project Title** | Credit Risk Intelligence Console |
 | **Dataset** | UCI Statlog (German Credit Data) |
 | **Submission Deadline** | 18 August 2026, 23:59 IST |
 
-> **How to use this file.** Export it to PDF and submit it as the single required PDF.
-> Replace the three placeholders in Section 1 with the real links, and paste the BITS
-> Virtual Lab screenshot into Section 3 before exporting.
 
 ---
 
@@ -44,7 +41,7 @@ classification reports and ROC curves.
 
 ### 1.3 BITS Virtual Lab Screenshot
 
-![*Insert the screenshot here (stored at `reports/screenshots/bits_virtual_lab.png`).*](screenshots/bits_virtual_lab.png)
+![Screenshot of the assignment being executed on the BITS Virtual Lab](screenshots/bits_virtual_lab.png)
 
 The screenshot evidences the execution of this assignment on the BITS Virtual Lab and
 shows the environment, the running project and a visible timestamp.
@@ -555,10 +552,10 @@ Forest as a challenger, re-evaluating both once more data accrues.
 
 | Rubric requirement | Implementation | Screenshot |
 |---|---|---|
-| **a. Dataset upload option (CSV, test data only)** | Sidebar file uploader accepting `test_data.csv`, with schema validation against `models/metadata.json` and a bundled fallback file. | *insert* |
-| **b. Model selection dropdown** | Sidebar `selectbox` listing all five classifiers, with a contextual description of the selected model. | *insert* |
-| **c. Display of evaluation metrics** | *Model Evaluation* page renders Accuracy, AUC, Precision, Recall, F1 and MCC as styled KPI cards; *Model Benchmark* tabulates all five models at once. | *insert* |
-| **d. Confusion matrix / classification report** | *Model Evaluation* page shows **both** an annotated confusion matrix and a full per-class classification report, plus the ROC curve. | *insert* |
+| **a. Dataset upload option (CSV, test data only)** | Sidebar file uploader accepting `test_data.csv`, with schema validation against `models/metadata.json` and a bundled fallback file. | Figure 1 |
+| **b. Model selection dropdown** | Sidebar `selectbox` listing all five classifiers, with a contextual description of the selected model. | Figure 1, Figure 3 |
+| **c. Display of evaluation metrics** | *Model Evaluation* page renders Accuracy, AUC, Precision, Recall, F1 and MCC as styled KPI cards; *Model Benchmark* tabulates all five models at once. | Figure 3, Figure 4 |
+| **d. Confusion matrix / classification report** | *Model Evaluation* page shows **both** an annotated confusion matrix and a full per-class classification report, plus the ROC curve. | Figure 3 |
 
 **Additional features implemented beyond the minimum:** five-page sidebar navigation; a
 live decision-threshold slider that lets the evaluator watch the precision/recall
@@ -569,17 +566,32 @@ downloads of predictions and the comparison table; a plain-language "business re
 the confusion matrix; and defensive handling of missing files, malformed CSVs, absent
 target columns and unseen categories.
 
-Overview
-![alt text](image.png)
+### Application screenshots
 
-Dataset Explorer
-![alt text](image-1.png)
+**Figure 1 — Overview page.** Landing page showing the business problem, the model
+catalogue with all five pipelines loaded, the training provenance panel, and the sidebar
+containing the CSV uploader (requirement a) and the five-page navigation.
 
-Model Evaluation
-![alt text](image-2.png)
+![Streamlit Overview page showing the model catalogue and sidebar CSV uploader](screenshots/app_1_overview.png)
 
-Model Benchmark
-![alt text](image-3.png)
+**Figure 2 — Dataset Explorer page.** Confirms the uploaded test file: 250 rows,
+21 columns, 0 missing cells and a 30.0 % bad-risk rate, with a decoded human-readable
+preview of the applicant records.
+
+![Streamlit Dataset Explorer page showing 250 rows, 21 columns, 0 missing cells and a 30 percent bad-risk rate](screenshots/app_2_dataset_explorer.png)
+
+**Figure 3 — Model Evaluation page (Random Forest).** All six mandated metrics rendered
+as KPI cards (requirement c) alongside the annotated confusion matrix and ROC curve
+(requirement d). The displayed values — Accuracy 0.7360, AUC 0.7993, MCC 0.4118 and the
+134 / 41 / 25 / 50 confusion matrix — match Section 4 exactly.
+
+![Streamlit Model Evaluation page for Random Forest showing six metric cards, confusion matrix and ROC curve](screenshots/app_3_model_evaluation.png)
+
+**Figure 4 — Model Benchmark page.** Scores all five pipelines on the same test data at
+the 0.50 threshold and reports Logistic Regression as the winner on MCC, AUC and Recall,
+reproducing the comparison table in Section 4.1.
+
+![Streamlit Model Benchmark page comparing all five models with Logistic Regression winning on MCC, AUC and Recall](screenshots/app_4_model_benchmark.png)
 
 
 ## Section 7 — Final Conclusions
