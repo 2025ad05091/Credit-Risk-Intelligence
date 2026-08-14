@@ -36,7 +36,7 @@ and the test data used in the experiments (`test_data.csv`).
 
 ### 1.2 Live Streamlit App Link
 
-**_<!-- TODO: paste the deployed Streamlit Cloud URL here before exporting the PDF -->_**
+**<https://credit-risk-intelligence-2025ad05091.streamlit.app/>**
 
 Deployed on Streamlit Community Cloud; the link opens an interactive front end with
 sidebar navigation, a CSV uploader, a model dropdown, metric cards, confusion matrices,

@@ -259,7 +259,7 @@ retain Random Forest as a challenger model, re-evaluating both once more data ac
 
 ## f. Streamlit Application
 
-**Live app:** _<!-- TODO: paste the deployed URL here after the Streamlit Cloud build succeeds -->_
+**Live app:** <https://credit-risk-intelligence-2025ad05091.streamlit.app/>
 
 ### Mandatory features (mapped to the assignment rubric)
 
