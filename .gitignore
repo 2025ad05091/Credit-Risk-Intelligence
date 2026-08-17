@@ -17,5 +17,9 @@ Thumbs.db
 # Streamlit
 .streamlit/secrets.toml
 
+# Generated report exports - SUBMISSION_REPORT.md is the tracked source,
+# the PDF is regenerated on demand and submitted to the portal directly.
+reports/*.pdf
+
 # NOTE: models/*.pkl and test_data.csv are intentionally committed -
 # Streamlit Community Cloud needs them at runtime.
