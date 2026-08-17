@@ -1,18 +1,75 @@
+<style>
+@page { size: A4; margin: 16mm 15mm 18mm 15mm; }
+
+body {
+  font-family: "Segoe UI", Calibri, "Helvetica Neue", Arial, sans-serif;
+  font-size: 10.5pt;
+  line-height: 1.5;
+  color: #1a1a1a;
+}
+
+h1 { font-size: 21pt; color: #1f4e79; border-bottom: 3px solid #1f4e79;
+     padding-bottom: 6px; margin: 0 0 4px; }
+h2 { font-size: 15pt; color: #1f4e79; border-bottom: 1.5px solid #c8d6e5;
+     padding-bottom: 4px; margin-top: 24px; page-break-before: always; }
+h3 { font-size: 12.5pt; color: #24486b; margin-top: 18px; }
+h4 { font-size: 11pt;   color: #24486b; margin-top: 14px; }
+h5 { font-size: 10.5pt; color: #4a4a4a; font-style: italic; margin-top: 12px; }
+h1, h2, h3, h4, h5 { page-break-after: avoid; }
+
+p, li { orphans: 3; widows: 3; }
+
+table { width: 100%; border-collapse: collapse; margin: 10px 0 14px;
+        font-size: 9pt; page-break-inside: auto; }
+thead { display: table-header-group; }
+tr { page-break-inside: avoid; }
+th, td { border: 1px solid #b9c6d4; padding: 5px 7px; text-align: left;
+         vertical-align: top; }
+th { background: #1f4e79; color: #ffffff; font-weight: 600; }
+tbody tr:nth-child(even) td { background: #f2f6fa; }
+
+img { max-width: 92%; height: auto; display: block; margin: 12px auto 4px;
+      border: 1px solid #ccd4dc; page-break-inside: avoid; }
+
+code { background: #f2f4f7; padding: 1px 4px; border-radius: 3px; font-size: 9pt; }
+pre  { background: #f7f8fa; border: 1px solid #dde3ea; border-radius: 4px;
+       padding: 8px 10px; font-size: 8.5pt; page-break-inside: avoid; }
+pre code { background: none; padding: 0; }
+
+blockquote { border-left: 4px solid #1f4e79; background: #f2f6fa;
+             margin: 10px 0; padding: 6px 12px; }
+hr { border: none; border-top: 1px solid #d5dde5; margin: 18px 0; }
+
+.cover-meta td { border: none; padding: 3px 0; font-size: 11pt; }
+.cover-meta td:first-child { width: 34%; color: #1f4e79; font-weight: 600; }
+</style>
+
 # Machine Learning Assignment 2 — Submission Report
 
 **Work Integrated Learning Programmes Division — BITS Pilani**
 **M.Tech (AIML / DSE) — Machine Learning — Assignment 2 (15 Marks)**
 
-| | |
-|---|---|
-| **Student Name** | Madhusudan M |
-| **BITS ID** | 2025AD05091 |
-| **Project Title** | Credit Risk Intelligence Console |
-| **Dataset** | UCI Statlog (German Credit Data) |
-| **Submission Deadline** | 18 August 2026, 23:59 IST |
+<table class="cover-meta">
+<tr><td>Student Name</td><td>Madhusudan M</td></tr>
+<tr><td>BITS ID</td><td>2025AD05091</td></tr>
+<tr><td>Project Title</td><td>Credit Risk Intelligence Console</td></tr>
+<tr><td>Dataset</td><td>UCI Statlog (German Credit Data)</td></tr>
+<tr><td>GitHub Repository</td><td>github.com/2025ad05091/Credit-Risk-Intelligence</td></tr>
+<tr><td>Live Application</td><td>credit-risk-intelligence-2025ad05091.streamlit.app</td></tr>
+<tr><td>Submission Deadline</td><td>18 August 2026, 23:59 IST</td></tr>
+</table>
 
+### Contents
 
----
+| Section | Title | Marks |
+|---|---|---|
+| 1 | Mandatory Submission Links | — |
+| 2 | GitHub README Content | — |
+| 3 | Dataset Description | 1 |
+| 4 | Models Used and Evaluation Metrics | 5 |
+| 5 | Observations on Model Performance | 3 |
+| 6 | Streamlit Application | 4 |
+| 7 | Final Conclusions | — |
 
 ## Section 1 — Mandatory Submission Links
 
@@ -262,13 +319,35 @@ Confusion-matrix breakdown on the same 250 applicants (175 Good, 75 Bad):
 
 #### e. Observations on Model Performance
 
-| ML Model Name | Observation about model performance |
-|---|---|
-| **Logistic Regression** | **The strongest model overall.** It records the best AUC (0.8125), F1 (0.6344) and MCC (0.4515), and catches 59 of the 75 defaulters — the highest recall in the study at 0.7867. Its accuracy (0.7280) is marginally below Random Forest's, but that gap is entirely explained by its willingness to trade false alarms for detected defaults, which is precisely the trade-off the 5:1 cost matrix demands. The reason it performs so well is that credit risk in this dataset is dominated by a handful of strong, roughly monotone signals — checking-account balance, loan duration, credit history, credit amount — whose effect on the log-odds is close to additive. With only 750 training rows spread over 61 encoded columns, the strong L2 penalty selected by cross-validation (`C = 0.05`) keeps variance low and generalisation high, whereas the more flexible learners exhaust the limited data. It also delivers the most stable probability ranking, which matters because the deployed console lets the credit officer move the cut-off. Weakness: it cannot represent interactions unless they are engineered manually. |
-| **Decision Tree** | **The weakest model on every headline metric** — accuracy 0.6120, AUC 0.6763, MCC 0.2340 — despite cross-validated pruning to `max_depth = 7` and `min_samples_leaf = 20`. The failure mode is visible in its confusion matrix: 72 of 175 creditworthy applicants are wrongly rejected, the worst false-positive count in the study. A single tree carves the space with hard axis-parallel splits, so a small perturbation in the data reroutes entire branches; with 750 rows and 61 encoded columns the estimated split points are simply too noisy. Its probability output is also coarse — every record in the same leaf shares one probability — which flattens the ROC curve and depresses AUC. Its redeeming quality is interpretability: the fitted rules can be printed and audited by a credit-risk committee, and it is the natural base learner whose variance the Random Forest is built to eliminate. |
-| **kNN** | **A misleading result that illustrates why accuracy alone is inadequate.** kNN posts a respectable accuracy of 0.7320 and by far the best precision (0.6538), yet its recall collapses to 0.2267 and its MCC (0.2631) is second-worst. The confusion matrix explains the paradox: it flags only 26 applicants as risky, catching 17 true defaulters while missing 58 — nearly four out of five. Because the algorithm has no `class_weight` parameter, each of the 31 neighbours votes with equal force in a training set where good applicants outnumber bad ones 7:3, so the majority class systematically dominates the neighbourhood vote. The problem is compounded by the curse of dimensionality: after one-hot encoding, the 61-dimensional space is sparse and Manhattan distances between applicants become nearly uniform, weakening the notion of "nearest". Its AUC of 0.7783 shows the underlying ranking is actually reasonable — the model is handicapped by the 0.50 cut-off, not by a lack of signal, and lowering the threshold in the app materially improves its recall. |
-| **Naive Bayes** | **A solid mid-table performer with a favourable effort-to-accuracy ratio** — accuracy 0.7040, AUC 0.7251, recall 0.6400, MCC 0.3507. It trains in milliseconds with a single hyper-parameter and still beats the Decision Tree on every metric, confirming that a simple generative model can be competitive on small tabular data. Its handicap is structural: the conditional-independence assumption is clearly violated here, since `credit_amount` and `duration_months` are strongly correlated (longer loans are larger loans) and `job`, `employment_since` and `housing` overlap heavily. Treating these as independent double-counts the evidence and pushes the posterior probabilities toward 0 or 1, which is why its AUC trails Logistic Regression by almost nine points even though the two models achieve comparable recall. Applying the Gaussian likelihood to one-hot indicator columns is a further approximation. It is best regarded as a fast, sensible baseline rather than a production candidate. |
-| **Random Forest (Ensemble)** | **The best cross-validated model (CV AUC 0.7926, the lowest variance at ±0.0139) and the runner-up on the test set** — the highest test accuracy (0.7360) and the second-best AUC (0.7993), F1 (0.6024) and MCC (0.4118). Bagging 600 de-correlated trees does exactly what the theory predicts: it eliminates the single tree's instability and lifts MCC from 0.2340 to 0.4118, an increase of 76 %, while cutting false positives from 72 to 41. Its feature-importance ranking independently corroborates the domain narrative, placing checking-account status, loan duration and credit amount at the top. The reason it does not overtake Logistic Regression on the test set is that its extra capacity is spent modelling interactions that the 750-row training sample cannot support reliably, and its averaged votes are more conservative near the 0.50 boundary, so it misses 25 defaulters against Logistic Regression's 16. It is the most robust choice if the bank later enlarges the training data, and it requires no distributional assumptions or manual feature engineering. Costs: an 8.5 MB artefact and far lower transparency than a single tree or a linear model. |
+##### Logistic Regression
+
+**The strongest model overall.** It records the best AUC (0.8125), F1 (0.6344) and MCC (0.4515), and catches 59 of the 75 defaulters — the highest recall in the study at 0.7867. Its accuracy (0.7280) is marginally below Random Forest's, but that gap is entirely explained by its willingness to trade false alarms for detected defaults, which is precisely the trade-off the 5:1 cost matrix demands.
+
+The reason it performs so well is that credit risk in this dataset is dominated by a handful of strong, roughly monotone signals — checking-account balance, loan duration, credit history, credit amount — whose effect on the log-odds is close to additive. With only 750 training rows spread over 61 encoded columns, the strong L2 penalty selected by cross-validation (`C = 0.05`) keeps variance low and generalisation high, whereas the more flexible learners exhaust the limited data. It also delivers the most stable probability ranking, which matters because the deployed console lets the credit officer move the cut-off. Weakness: it cannot represent interactions unless they are engineered manually.
+
+##### Decision Tree
+
+**The weakest model on every headline metric** — accuracy 0.6120, AUC 0.6763, MCC 0.2340 — despite cross-validated pruning to `max_depth = 7` and `min_samples_leaf = 20`. The failure mode is visible in its confusion matrix: 72 of 175 creditworthy applicants are wrongly rejected, the worst false-positive count in the study.
+
+A single tree carves the space with hard axis-parallel splits, so a small perturbation in the data reroutes entire branches; with 750 rows and 61 encoded columns the estimated split points are simply too noisy. Its probability output is also coarse — every record in the same leaf shares one probability — which flattens the ROC curve and depresses AUC. Its redeeming quality is interpretability: the fitted rules can be printed and audited by a credit-risk committee, and it is the natural base learner whose variance the Random Forest is built to eliminate.
+
+##### kNN
+
+**A misleading result that illustrates why accuracy alone is inadequate.** kNN posts a respectable accuracy of 0.7320 and by far the best precision (0.6538), yet its recall collapses to 0.2267 and its MCC (0.2631) is second-worst. The confusion matrix explains the paradox: it flags only 26 applicants as risky, catching 17 true defaulters while missing 58 — nearly four out of five.
+
+Because the algorithm has no `class_weight` parameter, each of the 31 neighbours votes with equal force in a training set where good applicants outnumber bad ones 7:3, so the majority class systematically dominates the neighbourhood vote. The problem is compounded by the curse of dimensionality: after one-hot encoding, the 61-dimensional space is sparse and Manhattan distances between applicants become nearly uniform, weakening the notion of "nearest". Its AUC of 0.7783 shows the underlying ranking is actually reasonable — the model is handicapped by the 0.50 cut-off, not by a lack of signal, and lowering the threshold in the app materially improves its recall.
+
+##### Naive Bayes
+
+**A solid mid-table performer with a favourable effort-to-accuracy ratio** — accuracy 0.7040, AUC 0.7251, recall 0.6400, MCC 0.3507. It trains in milliseconds with a single hyper-parameter and still beats the Decision Tree on every metric, confirming that a simple generative model can be competitive on small tabular data.
+
+Its handicap is structural: the conditional-independence assumption is clearly violated here, since `credit_amount` and `duration_months` are strongly correlated (longer loans are larger loans) and `job`, `employment_since` and `housing` overlap heavily. Treating these as independent double-counts the evidence and pushes the posterior probabilities toward 0 or 1, which is why its AUC trails Logistic Regression by almost nine points even though the two models achieve comparable recall. Applying the Gaussian likelihood to one-hot indicator columns is a further approximation. It is best regarded as a fast, sensible baseline rather than a production candidate.
+
+##### Random Forest (Ensemble)
+
+**The best cross-validated model (CV AUC 0.7926, the lowest variance at ±0.0139) and the runner-up on the test set** — the highest test accuracy (0.7360) and the second-best AUC (0.7993), F1 (0.6024) and MCC (0.4118). Bagging 600 de-correlated trees does exactly what the theory predicts: it eliminates the single tree's instability and lifts MCC from 0.2340 to 0.4118, an increase of 76 %, while cutting false positives from 72 to 41.
+
+Its feature-importance ranking independently corroborates the domain narrative, placing checking-account status, loan duration and credit amount at the top. The reason it does not overtake Logistic Regression on the test set is that its extra capacity is spent modelling interactions that the 750-row training sample cannot support reliably, and its averaged votes are more conservative near the 0.50 boundary, so it misses 25 defaulters against Logistic Regression's 16. It is the most robust choice if the bank later enlarges the training data, and it requires no distributional assumptions or manual feature engineering. Costs: an 8.5 MB artefact and far lower transparency than a single tree or a linear model.
 
 ##### Overall Winner for this dataset
 
@@ -515,15 +594,110 @@ applicants (175 Good, 75 Bad).
 
 ## Section 5 — Observations on Model Performance *(3 marks)*
 
-| ML Model Name | Observation about model performance |
+| ML Model Name | Headline observation |
 |---|---|
-| **Logistic Regression** | Strongest model overall: best AUC (0.8125), F1 (0.6344) and MCC (0.4515), and the highest recall (0.7867), catching 59 of 75 defaulters. Credit risk here is driven by a few strong, near-monotone signals (checking-account balance, duration, credit history, amount) whose effect on the log-odds is close to additive, so a linear decision boundary is well specified. With only 750 rows over 61 encoded columns the strong L2 penalty (`C = 0.05`) keeps variance low, whereas more flexible learners exhaust the data. It also yields the most stable probability ranking, which matters because the deployed console lets the user move the cut-off. Limitation: it cannot represent interactions without manual feature engineering. |
-| **Decision Tree** | Weakest model on every headline metric (accuracy 0.6120, AUC 0.6763, MCC 0.2340) despite cross-validated pruning. It wrongly rejects 72 of 175 creditworthy applicants — the worst false-positive count. Hard axis-parallel splits are unstable at this sample size, so small perturbations reroute whole branches, and the coarse leaf-level probabilities (every record in a leaf shares one value) flatten the ROC curve and depress AUC. Its value is interpretability: the rules can be printed and audited, and it is the natural base learner whose variance the ensemble removes. |
-| **kNN** | A cautionary result showing why accuracy alone is inadequate. Accuracy (0.7320) and precision (0.6538) look strong, yet recall collapses to 0.2267 and MCC to 0.2631: it flags only 26 applicants, catching 17 defaulters and missing 58. With no `class_weight` parameter, all 31 neighbours vote equally in a 7:3 imbalanced training set, so the majority class dominates every neighbourhood. The curse of dimensionality compounds this — in the sparse 61-dimensional one-hot space, Manhattan distances become nearly uniform and "nearest" loses meaning. Its AUC of 0.7783 shows the underlying ranking is sound; the handicap is the 0.50 cut-off, and lowering the threshold in the app materially improves recall. |
-| **Naive Bayes** | Solid mid-table performer with an excellent effort-to-accuracy ratio (accuracy 0.7040, AUC 0.7251, recall 0.6400, MCC 0.3507). It trains in milliseconds with one hyper-parameter yet beats the Decision Tree on every metric. Its handicap is structural: conditional independence is clearly violated, since `credit_amount` and `duration_months` are strongly correlated and `job`, `employment_since` and `housing` overlap heavily. Treating them as independent double-counts evidence and drives posteriors toward 0 or 1, which is why its AUC trails Logistic Regression by nearly nine points despite comparable recall. A fast, sensible baseline rather than a production candidate. |
-| **Random Forest (Ensemble)** | Best cross-validated model (CV AUC 0.7926, lowest variance ± 0.0139) and test-set runner-up: highest accuracy (0.7360), second-best AUC (0.7993), F1 (0.6024) and MCC (0.4118). Bagging 600 de-correlated trees does exactly what theory predicts — it lifts MCC from 0.2340 to 0.4118 (a 76 % gain over the single tree) and cuts false positives from 72 to 41. Its feature importances independently corroborate the domain narrative (checking-account status, duration, credit amount at the top). It does not overtake Logistic Regression because its extra capacity models interactions the 750-row sample cannot support, and its averaged votes are more conservative near the boundary, missing 25 defaulters against 16. Costs: an 8.5 MB artefact and much lower transparency. |
+| Logistic Regression | Strongest overall — best AUC, F1 and MCC, and the highest recall at 0.7867 |
+| Decision Tree | Weakest on every headline metric; worst false-positive count at 72 |
+| kNN | High precision but recall collapses to 0.2267 — misses 58 of 75 defaulters |
+| Naive Bayes | Solid mid-table baseline; independence assumption clearly violated |
+| Random Forest | Best cross-validated model and test-set runner-up on AUC, F1 and MCC |
 
-### Overall Winner for this dataset
+Each model is discussed in full below.
+
+### 5.1 Logistic Regression
+
+The strongest model overall. It records the best AUC (0.8125), F1 (0.6344) and MCC
+(0.4515), and the highest recall in the study at 0.7867, catching 59 of the 75
+defaulters. Its accuracy (0.7280) sits marginally below Random Forest's, but that gap is
+entirely explained by its willingness to trade false alarms for detected defaults —
+precisely the trade-off the 5:1 cost matrix demands.
+
+It performs well because credit risk in this dataset is dominated by a handful of strong,
+roughly monotone signals — checking-account balance, loan duration, credit history and
+credit amount — whose effect on the log-odds is close to additive, so a linear decision
+boundary is well specified. With only 750 training rows spread over 61 encoded columns,
+the strong L2 penalty selected by cross-validation (`C = 0.05`) keeps variance low and
+generalisation high, whereas the more flexible learners exhaust the limited data. It also
+delivers the most stable probability ranking, which matters because the deployed console
+lets the credit officer move the cut-off.
+
+*Limitation:* it cannot represent interactions unless they are engineered manually.
+
+### 5.2 Decision Tree
+
+The weakest model on every headline metric — accuracy 0.6120, AUC 0.6763, MCC 0.2340 —
+despite cross-validated pruning to `max_depth = 7` and `min_samples_leaf = 20`. The
+failure mode is visible in its confusion matrix: 72 of 175 creditworthy applicants are
+wrongly rejected, the worst false-positive count in the study.
+
+A single tree carves the space with hard axis-parallel splits, so a small perturbation in
+the data reroutes entire branches; with 750 rows over 61 encoded columns the estimated
+split points are simply too noisy. Its probability output is also coarse — every record
+in the same leaf shares one probability — which flattens the ROC curve and depresses AUC.
+
+*Redeeming quality:* interpretability. The fitted rules can be printed and audited by a
+credit-risk committee, and it is the natural base learner whose variance the Random
+Forest is built to eliminate.
+
+### 5.3 K-Nearest Neighbours
+
+A cautionary result that illustrates why accuracy alone is inadequate. kNN posts a
+respectable accuracy of 0.7320 and by far the best precision (0.6538), yet its recall
+collapses to 0.2267 and its MCC (0.2631) is second-worst. The confusion matrix explains
+the paradox: it flags only 26 applicants as risky, catching 17 true defaulters while
+missing 58 — nearly four out of five.
+
+Two mechanisms drive this. First, the algorithm exposes no `class_weight` parameter, so
+each of the 31 neighbours votes with equal force in a training set where good applicants
+outnumber bad ones 7:3, and the majority class systematically dominates every
+neighbourhood. Second, the curse of dimensionality compounds it: after one-hot encoding,
+the 61-dimensional space is sparse and Manhattan distances between applicants become
+nearly uniform, weakening the very notion of "nearest".
+
+Its AUC of 0.7783 shows the underlying ranking is actually sound — the model is
+handicapped by the 0.50 cut-off, not by a lack of signal, and lowering the threshold in
+the app materially improves its recall.
+
+### 5.4 Naive Bayes (Gaussian)
+
+A solid mid-table performer with a favourable effort-to-accuracy ratio — accuracy 0.7040,
+AUC 0.7251, recall 0.6400, MCC 0.3507. It trains in milliseconds with a single
+hyper-parameter and still beats the Decision Tree on every metric, confirming that a
+simple generative model can be competitive on small tabular data.
+
+Its handicap is structural: the conditional-independence assumption is clearly violated
+here, since `credit_amount` and `duration_months` are strongly correlated (longer loans
+are larger loans) and `job`, `employment_since` and `housing` overlap heavily. Treating
+these as independent double-counts the evidence and pushes the posterior probabilities
+toward 0 or 1, which is why its AUC trails Logistic Regression by almost nine points even
+though the two models achieve comparable recall. Applying the Gaussian likelihood to
+one-hot indicator columns is a further approximation.
+
+*Assessment:* a fast, sensible baseline rather than a production candidate.
+
+### 5.5 Random Forest (Ensemble)
+
+The best cross-validated model (CV AUC 0.7926, the lowest variance at ± 0.0139) and the
+runner-up on the test set — the highest test accuracy (0.7360) and the second-best AUC
+(0.7993), F1 (0.6024) and MCC (0.4118).
+
+Bagging 600 de-correlated trees does exactly what theory predicts: it eliminates the
+single tree's instability, lifting MCC from 0.2340 to 0.4118 — a 76 % gain — while
+cutting false positives from 72 to 41. Its feature-importance ranking independently
+corroborates the domain narrative, placing checking-account status, loan duration and
+credit amount at the top.
+
+It does not overtake Logistic Regression on the test set because its extra capacity is
+spent modelling interactions that the 750-row training sample cannot support reliably,
+and its averaged votes are more conservative near the 0.50 boundary, so it misses 25
+defaulters against Logistic Regression's 16. It is the most robust choice if the bank
+later enlarges the training data, and it requires no distributional assumptions or manual
+feature engineering.
+
+*Costs:* an 8.5 MB artefact and far lower transparency than a single tree or a linear
+model.
+
+### 5.6 Overall Winner for this dataset
 
 **Logistic Regression**, with Random Forest a close second.
 
@@ -567,7 +741,7 @@ downloads of predictions and the comparison table; a plain-language "business re
 the confusion matrix; and defensive handling of missing files, malformed CSVs, absent
 target columns and unseen categories.
 
-### Application screenshots
+### 6.1 Application screenshots
 
 **Figure 1 — Overview page.** Landing page showing the business problem, the model
 catalogue with all five pipelines loaded, the training provenance panel, and the sidebar
@@ -631,42 +805,3 @@ probability and can move the cut-off in line with the bank's risk appetite.
    dictates — a decision that belongs to the business, not the algorithm.
 
 ---
-
-## Section 8 — Final Submission Checklist
-
-| # | Requirement (assignment brief) | Status |
-|---|---|---|
-| 1 | GitHub repo link works | ☑ pushed and verified public |
-| 2 | Repo contains complete source code | ☑ `app.py`, `notebooks/training.ipynb` |
-| 3 | Repo contains `requirements.txt` | ☑ pinned, deployment-tested |
-| 4 | Repo contains a clear `README.md` | ☑ follows the mandated a–d structure |
-| 5 | Repo contains the test data (CSV) | ☑ `test_data.csv`, 250 labelled rows |
-| 6 | Saved model files for all implemented models | ☑ five `.pkl` pipelines + `metadata.json` |
-| 7 | Streamlit app link opens correctly | ☑ deployed, returns HTTP 200 |
-| 8 | App loads without errors | ☑ all five pages smoke-tested, 0 errors |
-| 9 | Dataset ≥ 500 instances | ☑ 1,000 |
-| 10 | Dataset ≥ 12 features | ☑ 20 predictors |
-| 11 | Logistic Regression implemented | ☑ |
-| 12 | Decision Tree implemented | ☑ |
-| 13 | kNN implemented | ☑ |
-| 14 | Naive Bayes (Gaussian) implemented | ☑ |
-| 15 | Random Forest ensemble implemented | ☑ |
-| 16 | All six metrics for every model | ☑ Accuracy, AUC, Precision, Recall, F1, MCC |
-| 17 | Comparison table populated with real outputs | ☑ from `reports/evaluation_results.csv` |
-| 18 | Observations for each model | ☑ Section 5 |
-| 19 | Overall winner declared and justified | ☑ Logistic Regression, evidence-backed |
-| 20 | App: CSV upload of test data | ☑ Figure 1 |
-| 21 | App: model selection dropdown | ☑ Figure 1, Figure 3 |
-| 22 | App: evaluation metrics displayed | ☑ Figure 3, Figure 4 |
-| 23 | App: confusion matrix / classification report | ☑ both, Figure 3 |
-| 24 | Results of different models visible in the app | ☑ Model Benchmark page, Figure 4 |
-| 25 | BITS Virtual Lab screenshot included | ☑ embedded in Section 1.3 |
-| 26 | README content included in the submitted PDF | ☑ Section 2 |
-| 27 | Reproducibility via `random_state` | ☑ `random_state = 42` throughout |
-| 28 | Original work, no template copied | ☑ |
-| 29 | Single PDF, sections in the mandated order | ☐ *verify after exporting* |
-| 30 | Submitted (not left as a draft) before 18 Aug 2026, 23:59 IST | ☐ *action required* |
-
----
-
-*Prepared for BITS Pilani WILP — Machine Learning Assignment 2.*
