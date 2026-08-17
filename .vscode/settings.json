@@ -1,0 +1,24 @@
+{
+  // Settings for the "Markdown PDF and HTML" VS Code extension
+  // (MarkdowntoPDFandHTML.convert-markdown-to-pdf-and-html), used to export
+  // reports/SUBMISSION_REPORT.md to PDF.
+  //
+  // IMPORTANT: these settings are only picked up when this repository folder
+  // is opened directly as the VS Code workspace root. If you open a parent
+  // folder instead, copy this file to that folder's .vscode/settings.json.
+  //
+  // Why these values matter: markdownConverter.pdfFormat defaults to A3, which
+  // renders the report oversized. The exporter also launches Puppeteer with
+  // preferCSSPageSize: false, so page size and margins CANNOT be set from CSS
+  // @page rules -- they must be configured here.
+  "markdownConverter.pdfFormat": "A4",
+  "markdownConverter.pdfMarginTop": "18mm",
+  "markdownConverter.pdfMarginBottom": "18mm",
+  "markdownConverter.pdfMarginLeft": "16mm",
+  "markdownConverter.pdfMarginRight": "16mm",
+
+  // Stylesheet applied to the exported HTML/PDF. Relative paths are resolved
+  // against the directory of the markdown file being exported, so this
+  // resolves to reports/report.css when exporting reports/SUBMISSION_REPORT.md.
+  "markdownConverter.cssPath": "report.css"
+}
